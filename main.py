@@ -74,6 +74,7 @@ class LVQ:
         print('Precision:', precision)
         print('FPR:', fpr)
         print('F1:', f1)
+      print('')
   
   def test(self, X_test, y_test):
     confusion = [0, 0, 0, 0]
