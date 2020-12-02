@@ -91,7 +91,12 @@ class LVQ:
         if cluster == 1:
           confusion[1] += 1    
 
-    return self.score(confusion)  
+    accuracy, recall, precision, fpr, f1 = self.score(conf)
+    print('Accuracy:', accuracy)
+    print('Recall:', recall)
+    print('Precision:', precision)
+    print('FPR:', fpr)
+    print('F1:', f1)
 
 
 if __name__ == '__main__':
