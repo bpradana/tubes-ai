@@ -12,8 +12,8 @@ class LVQ:
     self.X = X_test
     self.y = y_test
 
-  def init_weight(self):
-    self.w = [[random.random() for _ in self.X[0]] for _ in range(2)]
+  def init_weight(self, class_num):
+    self.w = [[random.random() for _ in self.X[0]] for _ in range(class_num)]
 
   def distance(self, a, b):
     total = 0
@@ -48,7 +48,6 @@ class LVQ:
           confusion[1] += 1
         for i in range(len(self.w[cluster])):
           self.w[cluster][i] = self.w[cluster][i] - self.lr*(x_[i] - self.w[cluster][i])
-      
     return confusion
 
   def score(self, conf):
@@ -63,23 +62,26 @@ class LVQ:
   def train(self, lr, epoch, verbose=False):
     self.lr = lr
     self.epoch = epoch
+    metrics = []
     for i in range(self.epoch):
       print('Epoch %d/%d' % (i+1, self.epoch))
       conf = self.iterate()
       
+      accuracy, recall, precision, fpr, f1 = self.score(conf)
+      metrics.append([accuracy, recall, precision, fpr, f1])
       if verbose:
-        accuracy, recall, precision, fpr, f1 = self.score(conf)
         print('Accuracy:', accuracy)
         print('Recall:', recall)
         print('Precision:', precision)
         print('FPR:', fpr)
         print('F1:', f1)
       print('')
+    return metrics
   
   def test(self, X_test, y_test):
     confusion = [0, 0, 0, 0]
-
-    for x_, y_ in X_test, y_test:
+    print('TESTING')
+    for x_, y_ in zip(X_test, y_test):
       cluster = self.compare(x_)
       if cluster == y_:
         if cluster == 0:
