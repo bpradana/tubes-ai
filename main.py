@@ -74,6 +74,24 @@ class LVQ:
         print('Precision:', precision)
         print('FPR:', fpr)
         print('F1:', f1)
+  
+  def test(self, X_test, y_test):
+    confusion = [0, 0, 0, 0]
+
+    for x_, y_ in X_test, y_test:
+      cluster = self.compare(x_)
+      if cluster == y_:
+        if cluster == 0:
+          confusion[0] += 1
+        if cluster == 1:
+          confusion[3] += 1
+      elif cluster != y_:
+        if cluster == 0:
+          confusion[2] += 1
+        if cluster == 1:
+          confusion[1] += 1    
+
+    return self.score(confusion)  
 
 
 if __name__ == '__main__':
