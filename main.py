@@ -92,7 +92,7 @@ class LVQ:
         if cluster == 1:
           confusion[1] += 1    
 
-    accuracy, recall, precision, fpr, f1 = self.score(conf)
+    accuracy, recall, precision, fpr, f1 = self.score(confusion)
     print('Accuracy:', accuracy)
     print('Recall:', recall)
     print('Precision:', precision)
@@ -115,7 +115,7 @@ if __name__ == '__main__':
   ]
   y = [0, 1, 0, 0, 0, 0, 1, 1, 1, 1]
   lr = 0.001
-  epoch = 3
+  epoch = 10000
 
   lvq = LVQ()
   lvq.load_data(x, y)
