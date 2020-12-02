@@ -98,6 +98,13 @@ class LVQ:
     print('Precision:', precision)
     print('FPR:', fpr)
     print('F1:', f1)
+  
+  def predict(self, x):
+    prediction = []
+    for x_ in x:
+      cluster = self.compare(x_)
+      prediction.append(cluster)
+    return prediction
 
 
 if __name__ == '__main__':
